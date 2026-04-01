@@ -19,15 +19,7 @@ public class Matrix {
         }
     }
 
-    public void print(){
-        for(double[] row : data){
-            for (double val: row){
-                System.out.printf("%8.2f", val);
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
+
 
     public double get(int i, int j){
         return data[i][j];
@@ -43,12 +35,22 @@ public class Matrix {
         data[r2] = temp;
     }
 
+    public int getColumns(){
+        return columns;
+    }
+
     public int getRows(){
         return rows;
     }
 
-    public int getColumns(){
-        return columns;
+    public void print(){
+        for(double[] row : data){
+            for (double val: row){
+                System.out.printf("%8.2f", val);
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
 }
