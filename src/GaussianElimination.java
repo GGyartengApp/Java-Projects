@@ -18,8 +18,7 @@ public class GaussianElimination {
             // Elimination
             for (int i = k + 1; i < n; i++) {
                 double factor = m.get(i, k) / m.get(k, k);
-
-                for (int j = k; j < m.getColumns(); j++) {
+                for (int j = k; j < m.getColumns(); j++) { // include last column!
                     double newValue = m.get(i, j) - factor * m.get(k, j);
                     m.set(i, j, newValue);
                 }
