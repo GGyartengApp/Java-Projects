@@ -37,5 +37,4 @@ public class Matrix {
         data[i][j] = value;
     }
 
-
 }
