@@ -37,4 +37,18 @@ public class Matrix {
         data[i][j] = value;
     }
 
+    public void swapRows(int r1, int r2){
+        double[] temp = data[r1];
+        data[r1] = data[r2];
+        data[r2] = temp;
+    }
+
+    public int getRows(){
+        return rows;
+    }
+
+    public int getColumns(){
+        return columns;
+    }
+
 }
