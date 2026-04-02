@@ -92,6 +92,8 @@ public class Main {
                     gauss.eliminate(matrix);
                     System.out.println("Final Matrix after Gaussian Elimination:");
                     matrix.print();
+                    double[] solution = gauss.getSolution(matrix); // make sure this exists in GaussJordan
+                    utils.displaySolution(solution);
                 }
 
                 case 4 -> { // Gauss-Jordan
