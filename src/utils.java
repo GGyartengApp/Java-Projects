@@ -6,22 +6,31 @@ public class utils {
         }
     }
 
-    public double[] getSolution(Matrix m) {
-        int n = m.getRows();
-        int cols = m.getColumns(); // last column = augmented
-        double[] x = new double[n];
+    public static void Spacer(){
+        System.out.println("");
 
-        // Start from the last row and move upwards
-        for (int i = n - 1; i >= 0; i--) {
-            double sum = 0;
-            for (int j = i + 1; j < n; j++) {
-                sum += m.get(i, j) * x[j];
-            }
-            double val = (m.get(i, cols - 1) - sum) / m.get(i, i);
-            if (Math.abs(val) < 1e-10) val = 0; // round near-zero
-            x[i] = val;
+    }
+
+    public static void showLoading(String message, int dotCount, int ms) throws InterruptedException {
+        // Print the message with animated dots
+        System.out.print(message);
+        for (int i = 0; i < dotCount; i++) {
+            System.out.print(".");
+            Thread.sleep(ms);
         }
 
-        return x;
+        // Clear the message dynamically based on its length
+        int totalLength = message.length() + dotCount;
+        System.out.print("\r"); // move cursor to start
+        for (int i = 0; i < totalLength; i++) {
+            System.out.print(" "); // overwrite with spaces
+        }
+        System.out.print("\r"); // move cursor back to start
+    }
+
+    public static void delay(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {}
     }
 }

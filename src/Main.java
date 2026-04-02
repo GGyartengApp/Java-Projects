@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -19,15 +19,20 @@ public class Main {
                 break;
             }
 
+
+            utils.delay(3);
             System.out.print("Enter number of rows: ");
             int rows = sc.nextInt();
+            utils.Spacer();
 
             int cols = rows; // determinant only works on square matrices
             if (choice == 3 || choice == 4) {
                 System.out.print("Enter number of columns (including augmented column if needed): ");
                 cols = sc.nextInt();
+                utils.Spacer();
             }
 
+            utils.showLoading("Please wait", 3, 500);
             Matrix matrix = new Matrix(rows, cols);
             System.out.println("Enter matrix elements row by row:");
             matrix.input(sc);
@@ -58,7 +63,8 @@ public class Main {
                                 m2.input(sc);
 
                                 Matrix result = MatrixOperations.multiply(matrix, m2);
-
+                                utils.Spacer();
+                                utils.showLoading("Adding", 3, 500);
                                 System.out.println("Result:");
                                 result.print();
                             }
@@ -67,9 +73,12 @@ public class Main {
                                 Matrix m2 = new Matrix(matrix.getRows(), matrix.getColumns());
                                 System.out.println("Enter second matrix:");
                                 m2.input(sc);
+                                utils.Spacer();
+
 
                                 Matrix result = MatrixOperations.add(matrix, m2);
 
+                                utils.showLoading("Multiplying", 3, 500);
                                 System.out.println("Result:");
                                 result.print();
                             }
