@@ -53,4 +53,13 @@ public class Matrix {
         System.out.println();
     }
 
+    public Matrix copy() {
+        Matrix m = new Matrix(rows, columns);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                m.set(i, j, this.get(i, j));
+            }
+        }
+        return m;
+    }
 }
