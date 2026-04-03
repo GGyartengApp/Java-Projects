@@ -64,7 +64,7 @@ public class Main {
 
                                 Matrix result = MatrixOperations.multiply(matrix, m2);
                                 utils.Spacer();
-                                utils.showLoading("Adding", 3, 500);
+                                utils.showLoading("Performing Operation", 3, 500);
                                 System.out.println("Result:");
                                 result.print();
                             }
