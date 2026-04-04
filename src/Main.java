@@ -43,6 +43,8 @@ public class Main {
                         System.out.println("\n--- General Matrix Operations ---");
                         System.out.println("1. Matrix Multiplication");
                         System.out.println("2. Matrix Addition");
+                        System.out.println("3. Adjoint");
+                        System.out.println("4. Transpose");
                         System.out.println("0. Back");
                         System.out.print("Enter your choice: ");
 
@@ -73,15 +75,40 @@ public class Main {
                                 Matrix m2 = new Matrix(matrix.getRows(), matrix.getColumns());
                                 System.out.println("Enter second matrix:");
                                 m2.input(sc);
-                                utils.Spacer();
 
 
                                 Matrix result = MatrixOperations.add(matrix, m2);
-
-                                utils.showLoading("Multiplying", 3, 500);
+                                utils.Spacer();
+                                utils.showLoading("Performing Operation", 3, 500);
                                 System.out.println("Result:");
                                 result.print();
                             }
+
+                            case 3 -> { // Adjoint
+                                if (!MatrixOperations.isSquare(matrix)) {
+                                    System.out.println("Matrix must be square to find adjoint ❌");
+                                    break;
+                                }
+
+                                utils.Spacer();
+                                utils.showLoading("Calculating Adjoint", 3, 500);
+
+                                Matrix result = MatrixOperations.adjoint(matrix);
+
+                                System.out.println("Adjoint Matrix:");
+                                result.print();
+                            }
+
+                            case 4 -> { // Transpose
+                                utils.Spacer();
+                                utils.showLoading("Calculating Transpose", 3, 500);
+
+                                Matrix result = MatrixOperations.transpose(matrix);
+
+                                System.out.println("Transpose Matrix:");
+                                result.print();
+                            }
+
 
                             default -> System.out.println("Invalid choice ❌");
                         }
@@ -99,6 +126,9 @@ public class Main {
                 case 3 -> { // Gaussian Elimination
                     GaussianElimination gauss = new GaussianElimination();
                     gauss.eliminate(matrix);
+
+                    utils.Spacer();
+                    utils.showLoading("Performing Calculation", 3, 500);
                     System.out.println("Final Matrix after Gaussian Elimination:");
                     matrix.print();
                     double[] solution = gauss.getSolution(matrix); // make sure this exists in GaussJordan
@@ -108,6 +138,8 @@ public class Main {
                 case 4 -> { // Gauss-Jordan
                     GaussJordan gj = new GaussJordan(matrix);
                     gj.reduceToRREF();
+                    utils.Spacer();
+                    utils.showLoading("Performing Calculation", 3, 500);
                     System.out.println("Matrix in Reduced Row Echelon Form:");
                     matrix.print();
                     double[] solution = gj.getSolution(); // make sure this exists in GaussJordan

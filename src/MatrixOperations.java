@@ -1,5 +1,6 @@
 public class MatrixOperations {
 
+    //ADDITION FUNCTION
     public static Matrix add(Matrix a, Matrix b) {
         if (a.getRows() != b.getRows() || a.getColumns() != b.getColumns()) {
             throw new IllegalArgumentException("Matrices must have same dimensions.");
@@ -12,11 +13,10 @@ public class MatrixOperations {
                 result.set(i, j, a.get(i, j) + b.get(i, j));
             }
         }
-
         return result;
     }
 
-    // ✖️ MULTIPLICATION
+    //MULTIPLICATION FUNCTION
     public static Matrix multiply(Matrix a, Matrix b) {
         if (a.getColumns() != b.getRows()) {
             throw new IllegalArgumentException("Invalid dimensions for multiplication.");
@@ -36,11 +36,13 @@ public class MatrixOperations {
         return  result;
     }
 
-        public static boolean isSquare (Matrix m){
-            return m.getRows() == m.getColumns();
-        }
+    //SQUARE FUNCTION
+    public static boolean isSquare (Matrix m){
+        return m.getRows() == m.getColumns();
+    }
 
-        public static double determinant (Matrix m){
+    //DETERMINANT
+    public static double determinant (Matrix m){
             if (!isSquare(m)) throw new IllegalArgumentException("Matrix must be square");
             Matrix copy = m.copy();
             double det = 1;
@@ -69,4 +71,69 @@ public class MatrixOperations {
 
             return det;
         }
+
+    //TRANSPOSE
+    public static Matrix transpose(Matrix m) {
+    Matrix result = new Matrix(m.getColumns(), m.getRows());
+
+    for (int i = 0; i < m.getRows(); i++) {
+        for (int j = 0; j < m.getColumns(); j++) {
+            result.set(j, i, m.get(i, j));
+        }
     }
+
+    return result;
+}
+
+    //HELPER
+    public static Matrix getMinor(Matrix m, int row, int col) {
+        int n = m.getRows();
+        Matrix minor = new Matrix(n - 1, n - 1);
+
+        int r = 0;
+        for (int i = 0; i < n; i++) {
+            if (i == row) continue;
+
+            int c = 0;
+            for (int j = 0; j < n; j++) {
+                if (j == col) continue;
+
+                minor.set(r, c, m.get(i, j));
+                c++;
+            }
+            r++;
+        }
+
+        return minor;
+    }
+
+    //COFACTOR FOR ADJOINT
+    public static Matrix cofactor(Matrix m) {
+        if (!isSquare(m)) {
+            throw new IllegalArgumentException("Matrix must be square");
+        }
+
+        int n = m.getRows();
+        Matrix cof = new Matrix(n, n);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                Matrix minor = getMinor(m, i, j);
+                double sign = ((i + j) % 2 == 0) ? 1 : -1;
+
+                cof.set(i, j, sign * determinant(minor));
+            }
+        }
+
+        return cof;
+    }
+
+    //ADJOINT
+    public static Matrix adjoint(Matrix m) {
+        if (!isSquare(m)) {
+            throw new IllegalArgumentException("Matrix must be square");
+        }
+
+        return transpose(cofactor(m));
+    }
+}
