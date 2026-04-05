@@ -10,7 +10,7 @@ public class Main {
             System.out.println("2. Determinant");
             System.out.println("3. Gaussian Elimination");
             System.out.println("4. Gauss-Jordan (RREF)");
-            System.out.println("5. Exit");
+            System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
 
@@ -45,6 +45,7 @@ public class Main {
                         System.out.println("2. Matrix Addition");
                         System.out.println("3. Adjoint");
                         System.out.println("4. Transpose");
+                        System.out.println("5. Inverse");
                         System.out.println("0. Back");
                         System.out.print("Enter your choice: ");
 
@@ -101,12 +102,31 @@ public class Main {
 
                             case 4 -> { // Transpose
                                 utils.Spacer();
-                                utils.showLoading("Calculating Transpose", 3, 500);
+                                utils.showLoading("Transposing Matrix", 3, 500);
 
                                 Matrix result = MatrixOperations.transpose(matrix);
 
                                 System.out.println("Transpose Matrix:");
                                 result.print();
+                            }
+                            case 5 -> { // Inverse
+                                if (!MatrixOperations.isSquare(matrix)) {
+                                    System.out.println("Matrix must be square to find inverse ❌");
+                                    break;
+                                }
+
+                                try {
+                                    utils.Spacer();
+                                    utils.showLoading("Calculating Inverse", 3, 500);
+
+                                    Matrix result = MatrixOperations.inverse(matrix);
+
+                                    System.out.println("Inverse Matrix:");
+                                    result.print();
+
+                                } catch (ArithmeticException e) {
+                                    System.out.println("Matrix is singular (no inverse exists) ❌");
+                                }
                             }
 
 
