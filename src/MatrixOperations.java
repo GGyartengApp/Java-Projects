@@ -136,4 +136,29 @@ public class MatrixOperations {
 
         return transpose(cofactor(m));
     }
+
+    //INVERSE
+    public static Matrix inverse(Matrix m) {
+        if (!isSquare(m)) {
+            throw new IllegalArgumentException("Matrix must be square");
+        }
+
+        double det = determinant(m);
+
+        if (det == 0) {
+            throw new ArithmeticException("Matrix has no inverse (det = 0)");
+        }
+
+        Matrix adj = adjoint(m);
+        int n = m.getRows();
+        Matrix inv = new Matrix(n, n);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                inv.set(i, j, adj.get(i, j) / det);
+            }
+        }
+
+        return inv;
+    }
 }
