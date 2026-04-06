@@ -10,11 +10,13 @@ public class Main {
             System.out.println("2. Determinant");
             System.out.println("3. Gaussian Elimination");
             System.out.println("4. Gauss-Jordan (RREF)");
+            System.out.println("5. LU Decomposition");
+            System.out.println("6. Solve System using LU");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
 
-            if (choice == 5) {
+            if (choice == 0) {
                 System.out.println("Exiting... 👋");
                 break;
             }
@@ -142,7 +144,6 @@ public class Main {
                     double det = MatrixOperations.determinant(matrix);
                     System.out.println("Determinant = " + det);
                 }
-
                 case 3 -> { // Gaussian Elimination
                     GaussianElimination gauss = new GaussianElimination();
                     gauss.eliminate(matrix);
@@ -154,7 +155,6 @@ public class Main {
                     double[] solution = gauss.getSolution(matrix); // make sure this exists in GaussJordan
                     utils.displaySolution(solution);
                 }
-
                 case 4 -> { // Gauss-Jordan
                     GaussJordan gj = new GaussJordan(matrix);
                     gj.reduceToRREF();
@@ -165,6 +165,58 @@ public class Main {
                     double[] solution = gj.getSolution(); // make sure this exists in GaussJordan
                     utils.displaySolution(solution);
                 }
+                case 5 -> { // LU Decomposition
+                    if (!MatrixOperations.isSquare(matrix)) {
+                        System.out.println("Matrix must be square ❌");
+                        break;
+                    }
+
+                    utils.Spacer();
+                    utils.showLoading("Performing LU Decomposition", 3, 500);
+
+                    LUDecomposition lu = new LUDecomposition(matrix);
+
+                    System.out.println("L Matrix:");
+                    lu.getL().print();
+
+                    System.out.println("U Matrix:");
+                    lu.getU().print();
+                }
+                case 6 -> { // Solve using LU
+                    if (!MatrixOperations.isSquare(matrix)) {
+                        System.out.println("Matrix must be square ❌");
+                        break;
+                    }
+
+                    int n = matrix.getRows();
+                    double[] b = new double[n];
+
+                    System.out.println("Enter vector b:");
+                    for (int i = 0; i < n; i++) {
+                        b[i] = sc.nextDouble();
+                    }
+
+                    utils.Spacer();
+                    utils.showLoading("Solving using LU", 3, 500);
+
+                    double[][] result = MatrixOperations.solveLUFull(matrix, b);
+
+                    double[] y = result[0];
+                    double[] x = result[1];
+
+                    System.out.println("\nL Matrix:");
+                    new LUDecomposition(matrix).getL().print();
+
+                    System.out.println("\nU Matrix:");
+                    new LUDecomposition(matrix).getU().print();
+
+                    System.out.println("\nIntermediate solution (y):");
+                    utils.displaySolution_Y(y);
+
+                    System.out.println("\nFinal solution (x):");
+                    utils.displaySolution(x);
+                }
+
 
                 default -> System.out.println("Invalid choice ❌");
             }

@@ -161,4 +161,50 @@ public class MatrixOperations {
 
         return inv;
     }
+
+    //FORWARD SUBSTITUTION
+    public static double[] forwardSubstitution(Matrix L, double[] b) {
+        int n = L.getRows();
+        double[] y = new double[n];
+
+        for (int i = 0; i < n; i++) {
+            double sum = 0;
+            for (int j = 0; j < i; j++) {
+                sum += L.get(i, j) * y[j];
+            }
+            y[i] = b[i] - sum;
+        }
+
+        return y;
+    }
+
+    //BACKWARD SUBSTITUTION
+    public static double[] backSubstitution(Matrix U, double[] y) {
+        int n = U.getRows();
+        double[] x = new double[n];
+
+        for (int i = n - 1; i >= 0; i--) {
+            double sum = 0;
+            for (int j = i + 1; j < n; j++) {
+                sum += U.get(i, j) * x[j];
+            }
+            x[i] = (y[i] - sum) / U.get(i, i);
+        }
+
+        return x;
+    }
+
+    //SOLVE_FULL_DECOMPOSTITION
+    public static double[][] solveLUFull(Matrix A, double[] b) {
+        LUDecomposition lu = new LUDecomposition(A);
+
+        Matrix L = lu.getL();
+        Matrix U = lu.getU();
+
+        double[] y = forwardSubstitution(L, b);
+        double[] x = backSubstitution(U, y);
+
+        return new double[][] { y, x };
+    }
+    
 }
