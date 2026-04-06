@@ -188,6 +188,13 @@ public class Main {
                         break;
                     }
 
+                    System.out.println("\n--- LU Solve Options ---");
+                    System.out.println("1. Normal LU -- (A = LU)");
+                    System.out.println("2. LU with Partial Pivoting -- (PA = LU)");
+                    System.out.print("Enter your choice: ");
+
+                    int luChoice = sc.nextInt();
+
                     int n = matrix.getRows();
                     double[] b = new double[n];
 
@@ -197,26 +204,54 @@ public class Main {
                     }
 
                     utils.Spacer();
-                    utils.showLoading("Solving using LU", 3, 500);
+                    utils.showLoading("Solving system", 3, 500);
 
-                    double[][] result = MatrixOperations.solveLUFull(matrix, b);
+                    switch (luChoice) {
 
-                    double[] y = result[0];
-                    double[] x = result[1];
+                        case 1 -> { // Normal LU
+                            double[][] result = MatrixOperations.solveLUFull(matrix, b);
 
-                    System.out.println("\nL Matrix:");
-                    new LUDecomposition(matrix).getL().print();
+                            double[] y = result[0];
+                            double[] x = result[1];
 
-                    System.out.println("\nU Matrix:");
-                    new LUDecomposition(matrix).getU().print();
+                            LUDecomposition lu = new LUDecomposition(matrix);
 
-                    System.out.println("\nIntermediate solution (y):");
-                    utils.displaySolution_Y(y);
+                            System.out.println("\nL Matrix:");
+                            lu.getL().print();
 
-                    System.out.println("\nFinal solution (x):");
-                    utils.displaySolution(x);
+                            System.out.println("\nU Matrix:");
+                            lu.getU().print();
+
+                            System.out.println("\nIntermediate solution (y):");
+                            utils.displaySolution_Y(y);
+
+                            System.out.println("\nFinal solution (x):");
+                            utils.displaySolution(x);
+                        }
+
+                        case 2 -> { // LUP (Partial Pivoting)
+                            LUPDecomposition lup = new LUPDecomposition(matrix);
+
+                            double[] x = lup.solve(b);
+
+                            System.out.println("\nL Matrix:");
+                            lup.getL().print();
+
+                            System.out.println("\nU Matrix:");
+                            lup.getU().print();
+
+                            utils.Spacer();
+                            utils.displaySolution_Y(lup.getY(b));
+
+                            System.out.println("\nSolution (x):");
+                            utils.displaySolution(x);
+
+
+                        }
+
+                        default -> System.out.println("Invalid choice ❌");
+                    }
                 }
-
 
                 default -> System.out.println("Invalid choice ❌");
             }
