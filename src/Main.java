@@ -6,6 +6,7 @@ public class Main {
 
         while (true) {
             System.out.println("\n====**** Linear Algebra Calculator ****====");
+            utils.Spacer();
             System.out.println("1. General Matrix Operations");
             System.out.println("2. Determinant");
             System.out.println("3. Gaussian Elimination");
