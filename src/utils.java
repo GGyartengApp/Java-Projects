@@ -9,7 +9,7 @@ public class utils {
     public static void displaySolution_Y(double[] solution) {
         System.out.println("\nSolution:");
         for (int i = 0; i < solution.length; i++) {
-            System.out.printf("y%d = %.2f\n", i + 1, solution[i]);
+            System.out.printf(Colors.CYAN + "y%d = %.2f\n" + Colors.RESET, i + 1, solution[i]);
         }
     }
 
