@@ -7,7 +7,7 @@ public class utils {
     }
 
     public static void displaySolution_Y(double[] solution) {
-        System.out.println("\nSolution:");
+        System.out.println(Colors.BLUE + "\nSolution:"+ Colors.RESET);
         for (int i = 0; i < solution.length; i++) {
             System.out.printf(Colors.CYAN + "y%d = %.2f\n" + Colors.RESET, i + 1, solution[i]);
         }
