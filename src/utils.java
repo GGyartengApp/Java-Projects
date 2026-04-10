@@ -6,6 +6,9 @@ public class utils {
         }
     }
 
+
+
+    //DISPLAY SOLUTION of Y1,Y2, Y3
     public static void displaySolution_Y(double[] solution) {
         System.out.println(Colors.BLUE + "\nSolution:"+ Colors.RESET);
         for (int i = 0; i < solution.length; i++) {
