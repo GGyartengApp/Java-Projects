@@ -43,7 +43,7 @@ public class Main {
             switch (choice) {
                 case 1 -> {
                     while (true) {
-                        System.out.println(Colors.GREEN + "\n--- General Matrix Operations ---");
+                        System.out.println(Colors.RED + "\n--- General Matrix Operations ---");
                         System.out.println("1. Matrix Multiplication");
                         System.out.println("2. Matrix Addition");
                         System.out.println("3. Adjoint");
