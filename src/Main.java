@@ -43,13 +43,13 @@ public class Main {
             switch (choice) {
                 case 1 -> {
                     while (true) {
-                        System.out.println(Colors.GREEN + "\n--- General Matrix Operations ---" + Colors.RESET);
+                        System.out.println(Colors.GREEN + "\n--- General Matrix Operations ---");
                         System.out.println("1. Matrix Multiplication");
                         System.out.println("2. Matrix Addition");
                         System.out.println("3. Adjoint");
                         System.out.println("4. Transpose");
                         System.out.println("5. Inverse");
-                        System.out.println("0. Back");
+                        System.out.println("0. Back" + Colors.RESET);
                         System.out.print("Enter your choice: ");
 
                         int opChoice = sc.nextInt();
