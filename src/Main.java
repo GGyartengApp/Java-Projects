@@ -62,7 +62,7 @@ public class Main {
                         switch (opChoice) {
 
                             case 1 -> { // Multiplication
-                                System.out.print("Enter columns of second matrix: ");
+                                System.out.print(Colors.RED + "Enter columns of second matrix: "+Colors.RESET);
                                 int cols2 = sc.nextInt();
 
                                 Matrix m2 = new Matrix(matrix.getColumns(), cols2);
